@@ -135,7 +135,7 @@ return [
      * global strategy here, or override it on a specific data object.
      */
     'name_mapping_strategy' => [
-        'input' => CamelCaseMapper::class,
+        'input' => SnakeCaseMapper::class,
         'output' => SnakeCaseMapper::class,
     ],
 
