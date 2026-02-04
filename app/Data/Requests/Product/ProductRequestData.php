@@ -3,14 +3,14 @@
 namespace App\Data\Requests\Product;
 
 use App\Enums\ProductSort;
+use Spatie\LaravelData\Attributes\Validation\BooleanType;
 use Spatie\LaravelData\Data;
-use Spatie\LaravelData\Attributes\Validation\In;
 use Spatie\LaravelData\Attributes\Validation\Min;
 use Spatie\LaravelData\Attributes\Validation\Max;
 use Spatie\LaravelData\Attributes\Validation\Exists;
-use Spatie\LaravelData\Attributes\MapInputName;
 use Spatie\LaravelData\Attributes\Validation\Enum;
-use Spatie\LaravelData\Mappers\SnakeCaseMapper;
+use Spatie\LaravelData\Attributes\Validation\Rule as ValidationRule;
+use Spatie\LaravelData\Attributes\WithCast;
 
 class ProductRequestData extends Data
 {
@@ -26,10 +26,12 @@ class ProductRequestData extends Data
         #[Exists('categories', 'id')]
         public ?int $categoryId,
         
+        #[BooleanType]
         public ?bool $inStock,
         
         #[Min(0)]
         #[Max(5)]
+        #[ValidationRule(['decimal:1'])]
         public ?float $ratingFrom,
         
         #[Enum(ProductSort::class)]
@@ -39,8 +41,8 @@ class ProductRequestData extends Data
         #[Max(100)]
         public int $perPage = 15,
         
-        // #[Min(1)]
-        // public int|Optional $page = 1,
+        #[Min(1)]
+        public int $page = 1,
     ) {}
     
 }
